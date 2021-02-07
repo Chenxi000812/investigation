@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head xmlns:th="http://www.thymeleaf.org">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>问卷调查</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="/layui/css/custom.css">
+</head>
+<body>
+    <div class="layui-col-xs12">
+        <fieldset class="layui-elem-field layui-field-title site-demo-button" style="margin-top: 30px;">
+            <legend id="showQuestionnaireTitle"></legend>
+        </fieldset>
+    </div>
+    <div class="layui-container layui-form layui-row" id="questionArea">
+
+    </div>
+<div style="position: fixed;bottom: 0;width: 100%">
+    <div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="demo">
+        <div class="layui-progress-bar layui-bg-red" lay-percent="0%"></div>
+    </div>
+    <button type="button" class="layui-btn layui-btn-fluid" style="margin-top: 5px">下一题</button>
+</div>
+<script src="/layui/layui.js"></script>
+<script th:inline="javascript">
+    //一般直接写在一个js文件中
+    layui.use(['layer', 'form', 'layedit', 'laydate','element'], function(){
+        var layer = layui.layer
+            ,form = layui.form
+            ,layedit = layui.layedit
+            ,laydate = layui.laydate
+            ,element = layui.element;
+        var $ = layui.jquery;
+
+        /*<![CDATA[*/
+        var data = /*[[${q}]]*/ null;
+        /*]]>*/
+
+        $("#showQuestionnaireTitle").text(data.title);
+        var ques = data.questions
+        var index = 0
+        var ansower = []
+        function nextQuestion(){
+            if (index===ques.length-1){
+                $("button").addClass("layui-btn-normal")
+                $("button").text("提交")
+            }
+            element.progress('demo', index*(100/(ques.length-1))+"%")
+            var caption = ques[index].caption
+            var options = ques[index].options
+            var type = ques[index].type
+            $("#questionArea").append("<div class=\"layui-col-xs12 layui-anim layui-anim-up\">\n" +
+                "            <h1>"+caption+"</h1>\n" +
+                "        </div>")
+            for (i in options){
+                $("#questionArea").append("<div class=\"layui-col-xs12 option layui-anim layui-anim-upbit\" va='"+options[i].id+"'>"+options[i].val+"</div>");
+            }
+            $(".option").click(function (){
+                if ($(this).hasClass("checked")){
+                    $(this).removeClass("checked")
+                }else {
+                    if (type===0){
+                        $(".checked").removeClass("checked")
+                    }
+                    $(this).addClass("checked")
+                }
+            })
+        }
+        nextQuestion()
+        $("button").click(function (){
+
+            if ($(".checked").length>0){
+                $(".checked").each(function (){
+                    ansower.push({"optionid":$(this).attr("va")})
+                })
+                $("#questionArea").empty()
+                if (index===ques.length-1){
+                    $.ajax({
+                        url: window.location.pathname+"/upload",
+                        type: 'POST',
+                        data: JSON.stringify(ansower),
+                        dataType:"json",
+                        contentType:"application/json",
+                    });
+                    window.location.replace("/thanks.html");
+                    return;
+                }else {
+                    index+=1
+                    $("#questionArea").empty()
+                    nextQuestion()
+                }
+            }
+
+        });
+    });
+
+
+</script>
+</body>
+</html>

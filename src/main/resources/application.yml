@@ -1,0 +1,29 @@
+spring:
+  thymeleaf:
+    enabled: true
+    encoding: utf-8
+    cache: false
+    mode: HTML
+  mvc:
+    view:
+      prefix: /
+      suffix: .html
+  datasource:
+    url: jdbc:mysql://192.144.212.104:3306/zhunlao?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+    username: root
+    password: Guochenxi2020.
+    type: com.alibaba.druid.pool.DruidDataSource
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+mybatis:
+  type-aliases-package: com.chenxi.investigation.domain.model
+  mapper-locations: classpath:mapper/*.xml
+logging:
+  level:
+    com.chenxi.investigation: debug
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  pageSizeZero: false

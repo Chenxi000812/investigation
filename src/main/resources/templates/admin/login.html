@@ -1,0 +1,60 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>敬老管理系统</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+</head>
+<body background="/css/bg.jpeg">
+<div class="layui-container" style=" display: block;
+    position: fixed;
+    _position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 666px;
+    height:400px;
+    margin-left: -333px;
+    margin-top: -200px;
+    z-index: 10001;
+    box-shadow: 2px 2px 4px #A0A0A0, -2px -2px 4px #A0A0A0;
+    background-color: #fff;">
+    <form class="layui-form layui-form-pane" style="margin: 15%" action="/login" method="post">
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-block">
+                <input type="text" name="username" autocomplete="off" placeholder="请输入用户名" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-inline">
+                <input type="password" name="password" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">请务必填写用户名</div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <input type="checkbox" name="remember-me" title="记住我">
+            </div>
+        </div>
+        <button class="layui-btn layui-btn-lg layui-btn-radius layui-btn-normal layui-btn-fluid" lay-submit="" lay-filter="demo1">
+            登录
+        </button>
+    </form>
+</div>
+<script src="/layui/layui.js"></script>
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function() {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate;
+        form.on('submit(demo1)', function(data){
+            
+            return true;
+        });
+
+    });
+</script>
+</body>
+</html>
