@@ -9,9 +9,9 @@ spring:
       prefix: /
       suffix: .html
   datasource:
-    url: jdbc:mysql://192.144.212.104:3306/zhunlao?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
-    username: root
-    password: Guochenxi2020.
+    url: jdbc:mysql://##########:3306/zhunlao?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+    username: ########
+    password: ##############
     type: com.alibaba.druid.pool.DruidDataSource
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
